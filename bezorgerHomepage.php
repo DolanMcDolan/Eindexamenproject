@@ -1,5 +1,5 @@
 <?php
-$userrole = array("bezorger", "admin", "eigenaar");
+$userrole = array("bezorger", "1", "eigenaar");
 require_once("./security.php");
 ?>
 
@@ -47,7 +47,7 @@ require_once("./security.php");
                     if ($conn->connect_error) {
                         die("Connection failed: " . $conn->connect_error);
                     }
-                    $sql = "SELECT a.idBestelling, a.videoTitel, b.woonplaats, b.adres FROM bestelling AS a INNER JOIN login AS b ON a.idKlant = b.idKlant where a.ophaaldatum = CURRENT_DATE";
+                    $sql = "SELECT a.idBestelling, a.videoTitel, b.woonplaats, b.adres FROM bestelling AS a INNER JOIN login AS b ON a.idUser = b.idUser where a.ophaaldatum = CURRENT_DATE";
 
                     $result = $conn->query($sql);
 
@@ -118,7 +118,7 @@ require_once("./security.php");
                     if ($conn->connect_error) {
                         die("Connection failed: " . $conn->connect_error);
                     }
-                    $sql = "SELECT a.idBestelling, a.videoTitel, b.woonplaats, b.adres FROM bestelling AS a INNER JOIN login AS b ON a.idKlant = b.idKlant where a.afleverdatum = CURRENT_DATE ";
+                    $sql = "SELECT a.idBestelling, a.videoTitel, b.woonplaats, b.adres FROM bestelling AS a INNER JOIN login AS b ON a.idUser = b.idUser where a.afleverdatum = CURRENT_DATE ";
 
                     $result = $conn->query($sql);
 

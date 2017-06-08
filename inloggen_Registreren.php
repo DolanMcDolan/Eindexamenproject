@@ -2,16 +2,14 @@
 if (isset($_POST['submitRegister'])) {
     require_once("./classes/LoginClass.php");
 
-    if (LoginClass::check_if_email_exists($_POST['email'])) {
-        //Zo ja, geef een melding dat het emailadres bestaat en stuur
+    if (LoginClass::check_if_emailAdres_exists($_POST['emailAdres'])) {
+        //Zo ja, geef een melding dat het emailAdres bestaat en stuur
         //door naar register_form.php
-        echo "test1";
-        echo "<h3 style='text-align: center;' >Het door u gebruikte emailadres is al in gebruik. Gebruik een ander emailadres. <br>U wordt doorgestuurd naar het registratieformulier</h3><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
-//        header("refresh:5;url=index.php?content=inloggen_Registreren");
+        echo "<h3 style='text-align: center;' >Het door u gebruikte emailAdres is al in gebruik. Gebruik een ander emailAdres. <br>U wordt doorgestuurd naar het registratieformulier</h3><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+        header("refresh:5;url=index.php?content=inloggen_Registreren");
     } else {
         echo "<h3 style='text-align: center;' >Uw gegevens zijn verwerkt.</h3><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
-//        header("refresh:3;url=index.php?content=inloggen_Registreren");
-        echo "test2";
+        header("refresh:3;url=index.php?content=inloggen_Registreren");
         LoginClass::insert_into_database($_POST);
     }
 } else {
@@ -62,12 +60,12 @@ if (isset($_POST['submitRegister'])) {
                                 name="woonplaats"
                                 placeholder="Woonplaats"
                                 type="text"></div>
-                        <div class="form-group"><label class="control-label" for="InputEmail1">E-mail<br></label><input
+                        <div class="form-group"><label class="control-label" for="InputemailAdres1">E-mail<br></label><input
                                 class="form-control"
-                                id="InputEmail1"
-                                name="email"
+                                id="InputemailAdres1"
+                                name="emailAdres"
                                 placeholder="E-mail"
-                                type="email"></div>
+                                type="emailAdres"></div>
 
                         <button type="submit" name="submitRegister" class="btn btn-primary">Verstuur<br></button>
 
@@ -75,14 +73,14 @@ if (isset($_POST['submitRegister'])) {
                 </div>
                 <div class="col-md-6">
                     <form role="form" action='index.php?content=checklogin' method='post'>
-                        <div class="form-group"><label class="control-label" for="InputEmail1">E-mail<br></label><input
-                                class="form-control" id="InputEmail1"
-                                name="email" placeholder="E-mail" type="email"></div>
+                        <div class="form-group"><label class="control-label" for="InputemailAdres1">E-mail<br></label><input
+                                class="form-control" id="InputemailAdres1"
+                                name="emailAdres" placeholder="E-mail" type="emailAdres"></div>
                         <div class="form-group"><label class="control-label"
                                                        for="InputPassword1">Wachtwoord</label><input
                                 class="form-control" id="InputPassword1"
-                                name="password" placeholder="Wachtwoord"
-                                type="password"></div>
+                                name="wachtwoord" placeholder="Wachtwoord"
+                                type="wachtwoord"></div>
 
                         <button type="submit" name="submitLogin" class="btn btn-primary">Verstuur</button>
 

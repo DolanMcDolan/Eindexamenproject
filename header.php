@@ -1,7 +1,7 @@
 <?php
 if (isset($_SESSION['userrole'])) {
     switch ($_SESSION['userrole']) {
-        case "klant":
+        case "2":
             echo "		
         <html>
 <head>
@@ -38,7 +38,7 @@ if (isset($_SESSION['userrole'])) {
 </html>
 ";
             break;
-        case "admin":
+        case "1":
             echo "		
         <html>
 <head>

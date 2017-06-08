@@ -1,5 +1,5 @@
 <?php
-$userrole = array("admin", "eigenaar");
+$userrole = array("1", "eigenaar");
 require_once("./security.php");
 ?>
 
@@ -41,7 +41,7 @@ if (isset($_POST['create'])) {
 
             $sql = "UPDATE	`login` 
                      SET 		`geblokkeerd`		=	'" . $_POST['blockSelect'] . "'
-                     WHERE	    `idKlant`			=	 " . $_POST['idKlant'] . " ";
+                     WHERE	    `idUser`			=	 " . $_POST['idUser'] . " ";
 
             // echo $sql;
             $database->fire_query($sql);
@@ -124,7 +124,7 @@ if (isset($_POST['create'])) {
                                         " . $row["naam"] . "
                                 </td>
                                 <td>
-                                        " . $row['email'] . "
+                                        " . $row['emailAdres'] . "
                                 </td>
                                 <td>
                                         " . $row['userrole'] . "
@@ -138,7 +138,7 @@ if (isset($_POST['create'])) {
                                                 <option value='1'>Blokkeren ( 1 )</option>
                                                 <option value='0'>Deblokkeren ( 0 )</option>
                                                 </select>
-                                            <input type='hidden' class=\"btn btn-info\" name='idKlant' value='" . $row['idKlant'] . "'/>
+                                            <input type='hidden' class=\"btn btn-info\" name='idUser' value='" . $row['idUser'] . "'/>
                                             <input type='submit' class=\"btn btn-info\" name='updateBlock' value='Update Blokkade'>
                                             
                                         </form>

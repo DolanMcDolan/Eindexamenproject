@@ -16,7 +16,7 @@ class MySqlDatabaseClass
     //Constructor
     public function __construct()
     {
-        $this->db_connection = mysqli_connect(SERVERNAME, USERNAME, PASSWORD, DATABASENAME);
+        $this->db_connection = mysqli_connect(SERVERNAME, USERNAME, wachtwoord, DATABASENAME);
 
     }
 

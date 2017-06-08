@@ -1,8 +1,8 @@
 <?php
 $userrole = array(
-    "klant",
+    "2",
     "bezorger",
-    "admin",
+    "1",
     "baliemedewerker",
     "eigenaar"
 );
@@ -28,7 +28,7 @@ if (isset($_POST['refreshwinkelmandje'])) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT * FROM `reservering` WHERE `idKlant` = '" . $_SESSION['idKlant'] . "'";
+    $sql = "SELECT * FROM `reservering` WHERE `idUser` = '" . $_SESSION['idUser'] . "'";
     $result = $conn->query($sql);
     // var_dump($result);
     if ($result->num_rows > 0) {
@@ -116,9 +116,9 @@ if (isset($_POST['refreshwinkelmandje'])) {
                         if ($conn->connect_error) {
                             die("Connection failed: " . $conn->connect_error);
                         }
-                        $sql = "SELECT * FROM winkelmand WHERE `idKlant` = " . $_SESSION['idKlant'] . " ";
+                        $sql = "SELECT * FROM winkelmand WHERE `idUser` = " . $_SESSION['idUser'] . " ";
                         // <Wijzigingsopdracht>
-                        $sql2 = "SELECT * FROM `reservering` WHERE `idKlant` = " . $_SESSION['idKlant'] . "";
+                        $sql2 = "SELECT * FROM `reservering` WHERE `idUser` = " . $_SESSION['idUser'] . "";
                         // </Wijzigingsopdracht>
                         $result = $conn->query($sql);
                         // <Wijzigingsopdracht>
@@ -167,14 +167,14 @@ if (isset($_POST['refreshwinkelmandje'])) {
                                 
                                 <th>
                                 <form role=\"form\" action='' method='post'>
-                                <input type='hidden' name='klantid' value='" . $_SESSION['idKlant'] . "'/>
+                                <input type='hidden' name='klantid' value='" . $_SESSION['idUser'] . "'/>
                                 <input type='hidden' name='idVideo' value='" . $row['idVideo'] . "'/>
                                 <input type='hidden' name='titel' value='" . $row['titel'] . "'/>
                         <input type='submit' class='btn btn - info' name='refreshwinkelmandje' value='Refresh winkelmandje'>
                         </form>
                                 
                                         <form role=\"form\" action='index.php?content=betalen' method='post'>
-                               <input type='hidden' name='klantid' value='" . $_SESSION['idKlant'] . "'/>
+                               <input type='hidden' name='klantid' value='" . $_SESSION['idUser'] . "'/>
                                 <input type='hidden' name='idVideo' value='" . $row['idVideo'] . "'/>
                                 <input type='hidden' name='titel' value='" . $row['titel'] . "'/>
                                 <input type='submit' class='btn btn - info' name='betalen' value='betalen'>
@@ -190,7 +190,7 @@ if (isset($_POST['refreshwinkelmandje'])) {
 
                             echo "
                                 <form role=\"form\" action='' method='post'>
-                                <input type='hidden' name='klantid' value='" . $_SESSION['idKlant'] . "'/>
+                                <input type='hidden' name='klantid' value='" . $_SESSION['idUser'] . "'/>
                         <input type='submit' class='btn btn - info' name='refreshwinkelmandje' value='Refresh winkelmandje'>
                         </form>";
                             // <input type='hidden' name='idVideo' value='" . $row['idVideo'] . "'/>

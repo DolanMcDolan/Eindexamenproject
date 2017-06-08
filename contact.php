@@ -1,14 +1,14 @@
 <?php
 if (isset($_POST['submit'])) {
     $name = $_POST['name'];
-    $email = $_POST['email'];
+    $emailAdres = $_POST['emailAdres'];
     $tel = $_POST['tel'];
     $comment = $_POST['comment'];
     $from = 'From: Website_Webshop Marklin';
     $to = '[placeholder]';
     $subject = 'Nieuw bericht van ' . $_POST['name'];
 
-    $body = "Naam: $name\nE-Mail: $email\nTelefoon: $tel\n\nBericht:\n$comment";
+    $body = "Naam: $name\nE-Mail: $emailAdres\nTelefoon: $tel\n\nBericht:\n$comment";
 
     if (mail($to, $subject, $body, $from)) {
         echo '<h3 style=\'text-align: center;\' >Uw bericht is verzonden!</h3><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
@@ -59,9 +59,9 @@ if (isset($_POST['submit'])) {
                                 class="requiredStar">*</span>
                             <input class="form-control" id="Naam1" placeholder="Naam" type="text" name="name" required>
                         </div>
-                        <div class="form-group"><label class="control-label" for="Email1">E-mail</label><span
+                        <div class="form-group"><label class="control-label" for="emailAdres1">E-mail</label><span
                                 class="requiredStar">*</span>
-                            <input class="form-control" placeholder="E-mail" type="email" name="email" required></div>
+                            <input class="form-control" placeholder="E-mail" type="emailAdres" name="emailAdres" required></div>
                         <div class="form-group"><label class="control-label" for="Telefoon">Telefoon<br></label>
                             <input class="form-control" id="Telefoon" placeholder="Telefoon" type="tel" name="tel"
                                    required></div>

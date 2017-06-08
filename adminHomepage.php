@@ -1,13 +1,13 @@
 <?php
-$userrole = array("admin", "eigenaar");
+$userrole = array("1", "eigenaar");
 require_once("./security.php");
 
 require_once("./classes/HireClass.php");
     if (isset($_POST['mail'])) {
 
-        HireClass::send_memory_email_day_before();
-        HireClass::send_memory_email_3_days_after();
-        HireClass::send_memory_email_3_weeks_after();
+        HireClass::send_memory_emailAdres_day_before();
+        HireClass::send_memory_emailAdres_3_days_after();
+        HireClass::send_memory_emailAdres_3_weeks_after();
         HireClass::set_video_not_new();
         echo "<h3 style='text-align: center;' >Herinnering mails worden verstuurd.</h3><br><br><br><br><br><br><br><br>         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
         header("refresh:4;url=index.php?content=adminHomepage");

@@ -18,42 +18,40 @@
 <?php
 require_once("./classes/LoginClass.php");
 
-if (isset($_GET['idKlant']) && isset($_GET['email']) && isset($_GET['password'])) {
-    if (LoginClass::check_if_activated($_GET['email'], $_GET['password'])) {
-        $action = "index.php?content=activate&idKlant=" . $_GET['idKlant'] . "&email=" . $_GET['email'] . "&password=" . $_GET['password'];
-
-
-        if (LoginClass::check_if_email_password_exists($_GET['email'], $_GET['password'], '0')) {
+if (isset($_GET['idUser']) && isset($_GET['emailAdres']) && isset($_GET['wachtwoord'])) {
+    if (LoginClass::check_if_activated($_GET['emailAdres'], $_GET['wachtwoord'])) {
+        $action = "index.php?content=activate&idUser=" . $_GET['idUser'] . "&emailAdres=" . $_GET['emailAdres'] . "&wachtwoord=" . $_GET['wachtwoord'];
+        if (LoginClass::check_if_emailAdres_password_exists($_GET['emailAdres'], $_GET['wachtwoord'], '0')) {
             if (isset($_POST['submit'])) {
                 // 1. Check of de twee ingevoerde passwords correct zijn.
                 if (!strcmp($_POST['password_1'], $_POST['password_2'])) {
-                    // 2. Activeer het account en update het oude password naar het nieuwe password.
-                    LoginClass::activate_account_by_id($_GET['idKlant']);
+                    // 2. Activeer het account en update het oude wachtwoord naar het nieuwe wachtwoord.
+                    LoginClass::activate_account_by_id($_GET['idUser']);
 
                     echo "<h3 style='text-align: center;' >Uw wachtwoord is succesvol gewijzigd.</h3><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
                     header("refresh:4;url=index.php?content=inloggen_Registreren");
-                    LoginClass::update_password($_GET['idKlant'], $_POST['password_1']);
+                    LoginClass::update_password($_GET['idUser'], $_POST['password_1']);
                 } else {
                     echo "<h3 style='text-align: center;' >Wachtwoorden komen niet overeen, probeer het nog een keer.</h3><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
                     header("refresh:4;url=" . $action);
                 }
             } else {
                 echo "<h3 style='text-align: center;' >Uw account wordt geactiveerd.<br>
-								Kies een nieuw password</h3><br>";
+								Kies een nieuw wachtwoord</h3><br>";
                 ?>
                 <div class="section">
                     <div class="container">
                         <form action="<?php echo $action; ?>" method='post' style="width: 50%;">
                             <div class="form-group"><label class="control-label" for="password_1">Typ hier uw nieuwe
                                     wachtwoord</label>
-                                <input class="form-control" id="password_1" placeholder="Wachtwoord" type="password"
+                                <input class="form-control" id="password_1" placeholder="Wachtwoord" type="wachtwoord"
                                        name="password_1" required></div>
 
                             <div class="form-group"><label class="control-label" for="password_2">Typ nogmaals uw
                                     wachtwoord (controle)</label>
-                                <input class="form-control" id="password_2" placeholder="Wachtwoord" type="password"
+                                <input class="form-control" id="password_2" placeholder="Wachtwoord" type="wachtwoord"
                                        name="password_2" required></div>
-                            <input type='hidden' name='idKlant' value='<?php echo $_GET['idKlant']; ?>'/>
+                            <input type='hidden' name='idUser' value='<?php echo $_GET['idUser']; ?>'/>
 
                             <button type="submit" name="submit" class="btn btn-primary">Verstuur</button>
 
@@ -64,11 +62,11 @@ if (isset($_GET['idKlant']) && isset($_GET['email']) && isset($_GET['password'])
                 <?php
             }
         } else {
-            echo "<h3 style='text-align: center;' >U heeft geen rechten op deze pagina. Uw email/password combi is niet correct of uw account is al geactiveerd. U wordt doorgestuurd naar de registratiepagina</h3><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+            echo "<h3 style='text-align: center;' >U heeft geen rechten op deze pagina. Uw emailAdres/wachtwoord combi is niet correct of uw account is al geactiveerd. U wordt doorgestuurd naar de registratiepagina</h3><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
             header("refresh:4;url=index.php?content=inloggen_Registreren");
         }
     } else {
-        echo "<h3 style='text-align: center;' >Uw account is all geactiveerd of uw email/password combi is niet correct u heeft daarom geen rechten op deze pagina. U wordt doorgestuurd naar de registratiepagina</h3><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+        echo "<h3 style='text-align: center;' >Uw account is all geactiveerd of uw emailAdres/wachtwoord combi is niet correct u heeft daarom geen rechten op deze pagina. U wordt doorgestuurd naar de registratiepagina</h3><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
         header("refresh:4;url=index.php?content=inloggen_Registreren");
     }
 } else {

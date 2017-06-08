@@ -1,6 +1,6 @@
 <?php
 
-$userrole = array("klant");
+$userrole = array("2");
 require_once("./security.php");
 
 if (isset($_POST['addAday'])) {
@@ -75,7 +75,7 @@ if (isset($_POST['addAday'])) {
                     if ($conn->connect_error) {
                         die("Connection failed: " . $conn->connect_error);
                     }
-                    $sql = "SELECT * FROM bestelling WHERE `idKlant` = " . $_SESSION['idKlant'] . " ";
+                    $sql = "SELECT * FROM bestelling WHERE `idUser` = " . $_SESSION['idUser'] . " ";
 
                     $result = $conn->query($sql);
                     echo "Verlengen kost 0,75 cent per dag, en 5,25 per week.";

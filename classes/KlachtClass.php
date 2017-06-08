@@ -17,7 +17,7 @@ class KlachtClass
 
     public function getIdKlant()
     {
-        return $this->idKlant;
+        return $this->idUser;
     }
 
     public function getKlacht()
@@ -49,20 +49,20 @@ class KlachtClass
     public static function insert_klacht_into_database($klacht)
     {
         global $database;
-        $query = "INSERT INTO `klachten` (`idKlacht`, `idKlant`, `klacht`, `emailKlant`) 
-                      VALUES (NULL, '" . $_SESSION['idKlant'] . "', '" . $klacht . "', '" . $_SESSION['email'] . "')";
-        //echo $_SESSION['idKlant'];
+        $query = "INSERT INTO `klachten` (`idKlacht`, `idUser`, `klacht`, `emailAdresKlant`) 
+                      VALUES (NULL, '" . $_SESSION['idUser'] . "', '" . $klacht . "', '" . $_SESSION['emailAdres'] . "')";
+        //echo $_SESSION['idUser'];
         //echo $klacht;
         // echo $query;
         $database->fire_query($query);
         $last_id = mysqli_insert_id($database->getDb_connection());
-        self::send_email($klacht);
+        self::send_emailAdres($klacht);
     }
 
 
-    private static function send_email($klacht)
+    private static function send_emailAdres($klacht)
     {
-        $to = $_SESSION['email'];
+        $to = $_SESSION['emailAdres'];
         $subject = "Bevestigingsmail Klacht Webshop Marklin";
         $message = "Geachte heer/mevrouw<br>";
         $message .= "Bedankt voor het indienen van uw klacht." . "<br><br>";

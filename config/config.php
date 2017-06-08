@@ -6,7 +6,7 @@ switch ($witch_server) {
     case '::1':
         define('SERVERNAME', 'localhost');
         define('USERNAME', 'root');
-        define('PASSWORD', '');
+        define('wachtwoord', '');
         define('DATABASENAME', 'examendatabase');
         // <Wijzigingsopdracht>
         define('MAIL_PATH', 'http://localhost/eindexamenproject/');

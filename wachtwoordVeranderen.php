@@ -37,25 +37,25 @@
                     <div class="form-group">
                         <div class="col-sm-2"><label for="inputPassword3" class="control-label">Oud
                                 Wachtwoord<br></label></div>
-                        <div class="col-sm-10"><input type="password" class="form-control" id="inputPassword3"
+                        <div class="col-sm-10"><input type="wachtwoord" class="form-control" id="inputPassword3"
                                                       disabled="disabled"></div>
                     </div>
                     <div class="form-group has-feedback">
-                        <div class="col-sm-2"><label for="inputEmail3" class="control-label">Nieuw
-                                Wachtwoord<br></label><label for="inputEmail3" class="control-label"><br></label><label
-                                for="inputEmail3" class="control-label"><br></label><label for="inputEmail3"
+                        <div class="col-sm-2"><label for="inputemailAdres3" class="control-label">Nieuw
+                                Wachtwoord<br></label><label for="inputemailAdres3" class="control-label"><br></label><label
+                                for="inputemailAdres3" class="control-label"><br></label><label for="inputemailAdres3"
                                                                                            class="control-label"><br></label>
                         </div>
-                        <div class="col-sm-10"><input type="password" class="form-control" id="inputPassword3"
+                        <div class="col-sm-10"><input type="wachtwoord" class="form-control" id="inputPassword3"
                                                       disabled="disabled"></div>
                     </div>
                     <div class="form-group has-feedback">
-                        <div class="col-sm-2"><label for="inputEmail3" class="control-label">Nieuw
-                                Wachtwoord<br></label><label for="inputEmail3" class="control-label"><br></label><label
-                                for="inputEmail3" class="control-label"><br></label><label for="inputEmail3"
+                        <div class="col-sm-2"><label for="inputemailAdres3" class="control-label">Nieuw
+                                Wachtwoord<br></label><label for="inputemailAdres3" class="control-label"><br></label><label
+                                for="inputemailAdres3" class="control-label"><br></label><label for="inputemailAdres3"
                                                                                            class="control-label"><br></label>
                         </div>
-                        <div class="col-sm-10"><input type="password" class="form-control" id="inputPassword3"
+                        <div class="col-sm-10"><input type="wachtwoord" class="form-control" id="inputPassword3"
                                                       disabled="disabled"></div>
                     </div>
                 </form>

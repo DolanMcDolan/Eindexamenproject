@@ -15,7 +15,7 @@
 //		{
 //			try
 //            {
-//                $this->db_connection = new PDO("mysql:host=".SERVERNAME."; dbname=".DATABASENAME, USERNAME, PASSWORD);
+//                $this->db_connection = new PDO("mysql:host=".SERVERNAME."; dbname=".DATABASENAME, USERNAME, wachtwoord);
 //                $this->db_connection.setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 //                echo "De connectie met de server is succesvol";
 //            }

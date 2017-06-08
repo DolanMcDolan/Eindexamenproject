@@ -17,7 +17,7 @@ class ActeurClass
 
     public function getActeur()
     {
-        return $this->idKlant;
+        return $this->idUser;
     }
 
 

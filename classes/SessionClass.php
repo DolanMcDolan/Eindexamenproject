@@ -5,7 +5,7 @@ class SessionClass
 {
     //Fields
     private $idKlant;
-    private $email;
+    private $emailAdres;
     private $userrole;
     private $geblokkeerd;
 
@@ -22,15 +22,15 @@ class SessionClass
 
     public function login($loginObject)
     {
-        // De velden $id, $email, $userrole een waarde geven.
+        // De velden $id, $emailAdres, $userrole een waarde geven.
         //var_dump($loginObject);
-        $this->idKlant = $_SESSION['idKlant'] = $loginObject->getIdKlant();
-        $this->email = $_SESSION['email'] = $loginObject->getEmail();
-        $this->userrole = $_SESSION['userrole'] = $loginObject->getUserrole();
+        $this->idUser = $_SESSION['idUser'] = $loginObject->getIdKlant();
+        $this->emailAdres = $_SESSION['emailAdres'] = $loginObject->getemailAdres();
+        $this->userrole = $_SESSION['userrole'] = $loginObject->getRol();
         $this->geblokkeerd = $_SESSION['geblokkeerd'] = $loginObject->getGeblokkeerd();
 
 
-        $usersObject = LoginClass::find_info_by_id($_SESSION['idKlant']);
+        $usersObject = LoginClass::find_info_by_id($_SESSION['idUser']);
         //$_SESSION['username'] = $usersObject->getFirstName()." ".
         //$usersObject->getInfix()." ".
         //$usersObject->getLastname();
@@ -39,15 +39,15 @@ class SessionClass
 
     public function logout()
     {
-        session_unset('idKlant');
-        session_unset('email');
+        session_unset('idUser');
+        session_unset('emailAdres');
         session_unset('userrole');
         session_unset('geblokkeerd');
 
 
         session_destroy();
-        unset($this->idKlant);
-        unset($this->email);
+        unset($this->idUser);
+        unset($this->emailAdres);
         unset($this->userrole);
         unset($this->geblokkeerd);
 

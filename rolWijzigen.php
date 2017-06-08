@@ -1,5 +1,5 @@
 <?php
-$userrole = array("admin", "eigenaar");
+$userrole = array("1", "eigenaar");
 require_once("./security.php");
 ?>
 
@@ -41,7 +41,7 @@ if (isset($_POST['create'])) {
 
             $sql = "UPDATE	`login` 
                      SET 		`userrole`		=	'" . $_POST['userroleSelect'] . "'
-                     WHERE	    `idKlant`			=	 " . $_POST['idKlant'] . " ";
+                     WHERE	    `idUser`			=	 " . $_POST['idUser'] . " ";
 
             //echo $sql;
             $database->fire_query($sql);
@@ -121,7 +121,7 @@ if (isset($_POST['create'])) {
                                         " . $row["naam"] . "
                                 </td>
                                 <td>
-                                        " . $row['email'] . "
+                                        " . $row['emailAdres'] . "
                                 </td>
                                 <td>
                                         " . $row['userrole'] . "
@@ -134,7 +134,7 @@ if (isset($_POST['create'])) {
                                                 <option value='baliemedewerker'>Baliemedewerker</option>
                                                 <option value='admin'>Admin</option>
                                                 <option value='bezorger'>Bezorger</option>
-                                            <input type='hidden' class=\"btn btn-info\" name='idKlant' value='" . $row['idKlant'] . "'/>
+                                            <input type='hidden' class=\"btn btn-info\" name='idUser' value='" . $row['idUser'] . "'/>
                                             <input type='submit' class=\"btn btn-info\" name='updateUserrole' value='Update Rol'>
                                             
                                         </form>

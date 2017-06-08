@@ -1,5 +1,5 @@
 <?php
-$userrole = array("admin", "eigenaar");
+$userrole = array("1", "eigenaar");
 require_once("./security.php");
 ?>
 
@@ -78,7 +78,7 @@ require_once("./security.php");
                             <thead>
                             <tr>
                                 <th>
-                                        Klant emailadres:
+                                        Klant emailAdres:
                                 </th>
                                 <th>
                                         Klacht:
@@ -89,7 +89,7 @@ require_once("./security.php");
                             <tr>
 
                                 <td>
-                                        " . $row['emailKlant'] . "
+                                        " . $row['emailAdresKlant'] . "
                                 </td>
                                 <td>
                                         " . $row['klacht'] . "

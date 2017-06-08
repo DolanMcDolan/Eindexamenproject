@@ -22,7 +22,7 @@ class LoginClass
     //Fields
     private $idKlant;
     private $naam;
-    private $emailAdres;
+    private $emailAdresAdres;
     private $wachtwoord;
     private $adres;
     private $woonplaats;
@@ -34,9 +34,9 @@ class LoginClass
 
 
     //Properties
-    public function getIdKlant()                { return $this->idKlant; }
+    public function getIdKlant()                { return $this->idUser; }
     public function getNaam()                   { return $this->naam; }
-    public function getEmailAdres()             { return $this->emailAdres; }
+    public function getemailAdres()             { return $this->emailAdres; }
     public function getWachtwoord()             { return $this->wachtwoord; }
     public function getAdres()                  { return $this->adres; }
     public function getWoonplaats()             { return $this->woonplaats; }
@@ -46,9 +46,9 @@ class LoginClass
     public function getActivatiedatum()         { return $this->activatiedatum; }
     public function getGeblokkeerd()            { return $this->geblokkeerd; }
 
-    public function setIdKlant($value)          { $this->idKlant = $value; }
+    public function setIdKlant($value)          { $this->idUser = $value; }
     public function setNaam($value)             { $this->naam = $value; }
-    public function setEmailAdres($value)       { $this->emailAdres = $value; }
+    public function setemailAdresAdres($value)       { $this->emailAdres = $value; }
     public function setWachtwoord($value)       { $this->wachtwoord = $value; }
     public function setAdres($value)            { $this->adres = $value; }
     public function setWoonplaats($value)       { $this->woonplaats = $value; }
@@ -83,7 +83,7 @@ class LoginClass
             $object = new LoginClass();
 
             // Stop de gevonden recordwaarden uit de database in de fields van een LoginClass-object
-            $object->idKlant = $row['idKlant'];
+            $object->idUser = $row['idUser'];
             $object->naam = $row['naam'];
             $object->emailAdres = $row['emailAdres'];
             $object->wachtwoord = $row['wachtwoord'];
@@ -100,11 +100,11 @@ class LoginClass
         return $object_array;
     }
 
-    public static function find_login_by_email_password($emailAdres, $wachtwoord)
+    public static function find_login_by_emailAdres_password($emailAdresAdres, $wachtwoord)
     {
         $query = "SELECT *
 					  FROM `users`
-					  WHERE `emailAdres` 	= '" . $emailAdres . "'
+					  WHERE `emailAdres` 	= '" . $emailAdresAdres . "'
 					  AND	`wachtwoord`	= '" . $wachtwoord . "'";
 
         $loginClassObjectArray = self::find_by_sql($query);
@@ -116,12 +116,11 @@ class LoginClass
     public static function insert_into_database($post)
     {
         global $database;
-        echo"test3";
         date_default_timezone_set("Europe/Amsterdam");
 
         $datum = date('Y-m-d');
         $betaalwijze = 1;
-        $rol = 1;
+        $rol = 2;
 
         $wachtwoord = MD5($post['emailAdres'] . date('Y-m-d H:i:s'));
 
@@ -145,23 +144,23 @@ class LoginClass
 									   '" . $betaalwijze . "',
 									   '" . $rol . "',
 									   '" . '0' . "',
-									   '" . $date . "',
+									   '" . $datum . "',
 									   '" . '0' . "')";
-        echo $query;
+
         $database->fire_query($query);
 
         $last_id = mysqli_insert_id($database->getDb_connection());
 
-        //self::send_email($last_id, $post, $wachtwoord);
+        self::send_emailAdres($last_id, $post, $wachtwoord);
     }
 
-    public static function check_if_email_exists($emailAdres)
+    public static function check_if_emailAdres_exists($emailAdresAdres)
     {
         global $database;
 
         $query = "SELECT `emailAdres`
 					  FROM	 `users`
-					  WHERE	 `emailAdres` = '" . $emailAdres . "'";
+					  WHERE	 `emailAdres` = '" . $emailAdresAdres . "'";
 
         $result = $database->fire_query($query);
 
@@ -170,13 +169,13 @@ class LoginClass
     }
 
 
-    public static function check_if_email_password_exists($emailAdres, $wachtwoord, $geactiveerd)
+    public static function check_if_emailAdres_password_exists($emailAdresAdres, $wachtwoord, $geactiveerd)
     {
         global $database;
 
-        $query = "SELECT `emailAdres`, `wachtwoord`, `activated`
+        $query = "SELECT `emailAdres`, `wachtwoord`, `geactiveerd`
 					  FROM	 `users`
-					  WHERE	 `emailAdres` = '" . $emailAdres . "'
+					  WHERE	 `emailAdres` = '" . $emailAdresAdres . "'
 					  AND	 `wachtwoord` = '" . $wachtwoord . "'";
 
         $result = $database->fire_query($query);
@@ -186,13 +185,13 @@ class LoginClass
         return (mysqli_num_rows($result) > 0 && $record['geactiveerd'] == $geactiveerd) ? true : false;
     }
 
-    public static function check_if_activated($emailAdres, $wachtwoord)
+    public static function check_if_activated($emailAdresAdres, $wachtwoord)
     {
         global $database;
 
         $query = "SELECT `geactiveerd`
 					  FROM	 `users`
-					  WHERE	 `emailAdres` = '" . $emailAdres . "'
+					  WHERE	 `emailAdres` = '" . $emailAdresAdres . "'
 					  AND	 `wachtwoord` = '" . $wachtwoord . "'";
 
         $result = $database->fire_query($query);
@@ -207,7 +206,7 @@ class LoginClass
 
         $query = "SELECT `geblokkeerd`
 					  FROM	 `users`
-					  WHERE	 `idKlant` = '" . $idKlant . "'";
+					  WHERE	 `idUser` = '" . $idKlant . "'";
 
         $result = $database->fire_query($query);
         $record = mysqli_fetch_array($result);
@@ -215,10 +214,10 @@ class LoginClass
 
     }
 
-    private static function send_email($idKlant, $post, $wachtwoord)
+    private static function send_emailAdres($idKlant, $post, $wachtwoord)
     {
         $to = $post['emailAdres'];
-        $subject = "Activatiemail Webshop";
+        $subject = "ActivatiemailAdres Webshop";
         $message = "Geachte heer/mevrouw " . $post['naam'] . " <br> ";
 
         $message .= '<style>a { color:red;}</style>';
@@ -227,7 +226,7 @@ class LoginClass
         $message .= "U kunt de registratie voltooien door op de onderstaande" . "<br>";
         $message .= "activatielink te klikken:" . "<br>";
 
-        $message .= "klik <a href='" . MAIL_PATH . "index.php?content=activate&idKlant=" . $idKlant . "&emailAdres=" . $post['emailAdres'] . "&wachtwoord=" . $wachtwoord . "'><b>Hier</b></a> om uw account te activeren" . "<br>";
+        $message .= "klik <a href='" . MAIL_PATH . "index.php?content=activate&idUser=" . $idKlant . "&emailAdres=" . $post['emailAdres'] . "&wachtwoord=" . $wachtwoord . "'><b>Hier</b></a> om uw account te activeren" . "<br>";
 
         $message .= "U kunt dan vervolgens een nieuw wachtwoord instellen." . "<br>";
         $message .= "Met vriendelijke groet," . "<br>";
@@ -250,7 +249,7 @@ class LoginClass
         global $database;
         $query = "UPDATE `users`
 					  SET `geactiveerd` = '1'
-					  WHERE `idKlant` = '" . $idKlant . "'";
+					  WHERE `idUser` = '" . $idKlant . "'";
 
         $database->fire_query($query);
 
@@ -261,7 +260,7 @@ class LoginClass
         global $database;
         $query = "UPDATE `users` 
 					  SET	 `wachtwoord` =	'" . MD5($wachtwoord) . "'
-					  WHERE	 `idKlant`		=	'" . $idKlant . "'";
+					  WHERE	 `idUser`		=	'" . $idKlant . "'";
         $database->fire_query($query);
 
     }
@@ -270,7 +269,7 @@ class LoginClass
     {
         $query = "SELECT *
 					  FROM	 `users`
-					  WHERE	 `idKlant`	=	'" . $_SESSION['idKlant'] . "'";
+					  WHERE	 `idUser`	=	'" . $_SESSION['idUser'] . "'";
         $arrayLoginClassObjecten = self::find_by_sql($query);
         $loginClassObject = array_shift($arrayLoginClassObjecten);
         //var_dump($loginClassObject);
@@ -286,7 +285,7 @@ class LoginClass
     public static function update_database($post)
     {
         global $database;
-        $query = "UPDATE `users` SET `naam`='" . $post['naam'] . "' where `idKlant`='" . $_SESSION['idKlant'] . "'";
+        $query = "UPDATE `users` SET `naam`='" . $post['naam'] . "' where `idUser`='" . $_SESSION['idUser'] . "'";
         //echo"users update";
         $database->fire_query($query);
     }
@@ -295,7 +294,7 @@ class LoginClass
     {
         $query = "SELECT 	*
 					  FROM 		`users`
-					  WHERE		`idKlant`	=	" . $idKlant;
+					  WHERE		`idUser`	=	" . $idKlant;
         $object_array = self::find_by_sql($query);
         $usersclassObject = array_shift($object_array);
         //var_dump($usersclassObject); exit();

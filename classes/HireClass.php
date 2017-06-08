@@ -62,8 +62,8 @@ class HireClass
     public static function insert_winkelmanditem_database($post)
     {
         global $database;
-        $query = "INSERT INTO `winkelmand` (`idWinkelmand`, `idVideo`, `titel`, `idKlant`, `prijs`) 
-                      VALUES (NULL, '" . $post['idVideo'] . "', '" . $post['titel'] . "', " . $_SESSION['idKlant'] . ", " . $post['prijs'] . ")";
+        $query = "INSERT INTO `winkelmand` (`idWinkelmand`, `idVideo`, `titel`, `idUser`, `prijs`) 
+                      VALUES (NULL, '" . $post['idVideo'] . "', '" . $post['titel'] . "', " . $_SESSION['idUser'] . ", " . $post['prijs'] . ")";
 //            echo $_SESSION['id'];
 //            echo $post['titel'];
 //            echo $post['prijs'];
@@ -75,7 +75,7 @@ class HireClass
     public static function clear_winkelmand()
     {
         global $database;
-        $query = "DELETE FROM `winkelmand` WHERE `idKlant` = " . $_SESSION['idKlant'] . " ";
+        $query = "DELETE FROM `winkelmand` WHERE `idUser` = " . $_SESSION['idUser'] . " ";
 //            echo $query;
         $database->fire_query($query);
     }
@@ -83,7 +83,7 @@ class HireClass
     public static function remove_item_winkelmand($post)
     {
         global $database;
-        $query = "DELETE FROM `winkelmand` WHERE `idKlant` = " . $_SESSION['idKlant'] . "
+        $query = "DELETE FROM `winkelmand` WHERE `idUser` = " . $_SESSION['idUser'] . "
                                                     AND `idWinkelmand` = " . $post["idWinkelmand"] . " ";
         // echo $query;
         $database->fire_query($query);
@@ -103,8 +103,8 @@ class HireClass
         $sql = "SELECT idWinkelmand, GROUP_CONCAT(titel, ', ') 
                 AS titel_list 
                 FROM winkelmand 
-                WHERE `idKlant` = " . $_SESSION['idKlant'] . "
-                GROUP BY idKlant";
+                WHERE `idUser` = " . $_SESSION['idUser'] . "
+                GROUP BY idUser";
         // echo $sql;
         $result = $database->fire_query($sql);
         $row = $result->fetch_assoc();
@@ -114,7 +114,7 @@ class HireClass
         $query = "INSERT INTO `bestelling` (`idBestelling`, 
                                             `idVideo`, 
                                             `videoTitel`, 
-                                            `idKlant`, 
+                                            `idUser`, 
                                             `afleverdatum`, 
                                             `aflevertijd`, 
                                             `ophaaldatum`, 
@@ -123,7 +123,7 @@ class HireClass
                   VALUES                    (NULL, 
                                               " . $post['idVideo'] . ", 
                                              '" . $titelList . "', 
-                                              " . $_SESSION['idKlant'] . ", 
+                                              " . $_SESSION['idUser'] . ", 
                                              '" . $post['afleverdatum'] . "', 
                                              '" . $post['aflevertijd'] . "', 
                                              '" . $ophaaldatum . "', 
@@ -137,7 +137,7 @@ class HireClass
         $database->fire_query($query);
         $last_id = mysqli_insert_id($database->getDb_connection());
         self::lower_amount_Artikelen($post);
-        self::send_email($post, $last_id, $ophaaldatum);
+        self::send_emailAdres($post, $last_id, $ophaaldatum);
         self::increase_amount_hired($post);
         self::update_beschikbaar();
     }
@@ -168,9 +168,9 @@ class HireClass
 
     }
 
-    private static function send_email($post, $idBestelling, $ophaaldatum)
+    private static function send_emailAdres($post, $idBestelling, $ophaaldatum)
     {
-        $to = $_SESSION['email'];
+        $to = $_SESSION['emailAdres'];
         $subject = "Bevestigingsmail Bestelling Webshop Marklin";
         $message = "Geachte heer/mevrouw<br>";
 
@@ -311,23 +311,23 @@ class HireClass
 
     }
 
-    public static function send_memory_email_day_before()
+    public static function send_memory_emailAdres_day_before()
     {
         global $database;
 
-        $sql = "SELECT a.email FROM login AS a INNER JOIN bestelling AS b ON a.idKlant = b.idKlant where DATEDIFF(`ophaaldatum`,CURRENT_DATE) = 1";
+        $sql = "SELECT a.emailAdres FROM login AS a INNER JOIN bestelling AS b ON a.idUser = b.idUser where DATEDIFF(`ophaaldatum`,CURRENT_DATE) = 1";
         $result = $database->fire_query($sql);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                //echo $row3['email'];
-                self::send_memory_email_day_before_mail($row['email']);
+                //echo $row3['emailAdres'];
+                self::send_memory_emailAdres_day_before_mail($row['emailAdres']);
             }
         }
     }
 
-    public static function send_memory_email_day_before_mail($email)
+    public static function send_memory_emailAdres_day_before_mail($emailAdres)
     {
-        $to = $email;
+        $to = $emailAdres;
         $subject = "Bevestigingsmail Bestelling webshop Marklin";
         $message = "Geachte heer/mevrouw<br>";
 
@@ -348,23 +348,23 @@ class HireClass
         mail($to, $subject, $message, $headers);
     }
 
-    public static function send_memory_email_3_days_after()
+    public static function send_memory_emailAdres_3_days_after()
     {
         global $database;
 
-        $sql = "SELECT a.email FROM login AS a INNER JOIN bestelling AS b ON a.idKlant = b.idKlant where DATEDIFF(`ophaaldatum`,CURRENT_DATE) = -3";
+        $sql = "SELECT a.emailAdres FROM login AS a INNER JOIN bestelling AS b ON a.idUser = b.idUser where DATEDIFF(`ophaaldatum`,CURRENT_DATE) = -3";
         $result = $database->fire_query($sql);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                //echo $row3['email'];
-                self::send_memory_email_3_days_after_mail($row['email']);
+                //echo $row3['emailAdres'];
+                self::send_memory_emailAdres_3_days_after_mail($row['emailAdres']);
             }
         }
     }
 
-    public static function send_memory_email_3_days_after_mail($email)
+    public static function send_memory_emailAdres_3_days_after_mail($emailAdres)
     {
-        $to = $email;
+        $to = $emailAdres;
         $subject = "Bevestigingsmail Bestelling webshop Marklin";
         $message = "Geachte heer/mevrouw<br>";
 
@@ -385,24 +385,24 @@ class HireClass
         mail($to, $subject, $message, $headers);
     }
 
-    public static function send_memory_email_3_weeks_after()
+    public static function send_memory_emailAdres_3_weeks_after()
     {
         global $database;
 
-        $sql = "SELECT a.idKlant, a.email FROM login AS a INNER JOIN bestelling AS b ON a.idKlant = b.idKlant where DATEDIFF(`ophaaldatum`,CURRENT_DATE) = -21";
+        $sql = "SELECT a.idUser, a.emailAdres FROM login AS a INNER JOIN bestelling AS b ON a.idUser = b.idUser where DATEDIFF(`ophaaldatum`,CURRENT_DATE) = -21";
         $result = $database->fire_query($sql);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                //echo $row3['email'];
-                self::send_memory_email_3_weeks_after_mail($row['email']);
-                self::blokeer_user_na_3_weken($row['idKlant']);
+                //echo $row3['emailAdres'];
+                self::send_memory_emailAdres_3_weeks_after_mail($row['emailAdres']);
+                self::blokeer_user_na_3_weken($row['idUser']);
             }
         }
     }
 
-    public static function send_memory_email_3_weeks_after_mail($email)
+    public static function send_memory_emailAdres_3_weeks_after_mail($emailAdres)
     {
-        $to = $email;
+        $to = $emailAdres;
         $subject = "Bevestigingsmail Bestelling webshop Marklin";
         $message = "Geachte heer/mevrouw<br>";
 
@@ -428,7 +428,7 @@ class HireClass
         global $database;
         $sql = "UPDATE	`login` 
                      SET 		`geblokkeerd`		=	1
-                     WHERE	    `idKlant`			=	 " . $id. " ";
+                     WHERE	    `idUser`			=	 " . $id. " ";
         $database->fire_query($sql);
     }
     

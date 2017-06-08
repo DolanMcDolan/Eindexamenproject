@@ -1,5 +1,5 @@
 <?php
-$userrole = array("admin", "eigenaar");
+$userrole = array("1", "eigenaar");
 require_once("./security.php");
 ?>
 <html>
@@ -32,7 +32,7 @@ require_once("./security.php");
         if (isset($_POST['removeUser'])) {
             include('connect_db.php');
 
-            $sql = "DELETE FROM	`login` WHERE `idKlant` = " . $_POST['idKlant'] . " ";
+            $sql = "DELETE FROM	`login` WHERE `idUser` = " . $_POST['idUser'] . " ";
 
 
             //echo $sql;
@@ -113,7 +113,7 @@ require_once("./security.php");
                                         " . $row["naam"] . "
                                 </td>
                                 <td>
-                                        " . $row['email'] . "
+                                        " . $row['emailAdres'] . "
                                 </td>
                                 <td>
                                         " . $row['userrole'] . "
@@ -121,7 +121,7 @@ require_once("./security.php");
                                 <td>
                                         <form role=\"form\" action='' method='post'>
                                             <input type='submit' class=\"btn btn-info\" name='removeUser' value='Verwijder Gebruiker'>
-                                            <input type='hidden' class=\"btn btn-info\" name='idKlant' value='" . $row['idKlant'] . "'/>
+                                            <input type='hidden' class=\"btn btn-info\" name='idUser' value='" . $row['idUser'] . "'/>
                                         </form>
                                 </td>
                             </tr>

@@ -1,5 +1,5 @@
 <?php
-$userrole = array("klant", "bezorger", "admin", "baliemedewerker", "eigenaar");
+$userrole = array("2", "bezorger", "1", "baliemedewerker", "eigenaar");
 require_once("./security.php");
 ?>
 
@@ -71,7 +71,7 @@ if (isset($_POST['clearCart'])) {
                         if ($conn->connect_error) {
                             die("Connection failed: " . $conn->connect_error);
                         }
-                        $sql = "SELECT * FROM winkelmand WHERE `idKlant` = " . $_SESSION['idKlant'] . " ";
+                        $sql = "SELECT * FROM winkelmand WHERE `idUser` = " . $_SESSION['idUser'] . " ";
                         $result = $conn->query($sql);
 
                         if ($result->num_rows > 0) {
@@ -130,7 +130,7 @@ if (isset($_POST['clearCart'])) {
                          De video wordt een week later opgehaald, u kunt deze datum verzetten door in uw account een verlenging aan te vragen.<br>
                                                     <br>";
 
-                        $sql = "SELECT sum(prijs) AS value FROM `winkelmand` WHERE `idKlant` = " . $_SESSION['idKlant'] . " ";
+                        $sql = "SELECT sum(prijs) AS value FROM `winkelmand` WHERE `idUser` = " . $_SESSION['idUser'] . " ";
                         $result = $conn->query($sql);
                         //echo $result2;
                         if ($result->num_rows > 0) {
@@ -170,14 +170,14 @@ if (isset($_POST['clearCart'])) {
                         }
 
 
-                        $sql = "SELECT * FROM `winkelmand` WHERE `idKlant` = " . $_SESSION['idKlant'] . " ";
+                        $sql = "SELECT * FROM `winkelmand` WHERE `idUser` = " . $_SESSION['idUser'] . " ";
 
                         $result = $conn->query($sql);
 
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 echo "
-                                <input type='hidden' name='idKlant' value='" . $_SESSION['idKlant'] . "'/>
+                                <input type='hidden' name='idUser' value='" . $_SESSION['idUser'] . "'/>
                                 <input type='hidden' name='idVideo' value='" . $row['idVideo'] . "'/>
                         ";
 

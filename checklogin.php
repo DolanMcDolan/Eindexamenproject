@@ -2,14 +2,14 @@
 require_once("classes/LoginClass.php");
 require_once("classes/SessionClass.php");
 
-if (!empty($_POST['email']) && !empty($_POST['password'])) {
-    // Als email/password combi bestaat en geactiveerd....
-    if (LoginClass::check_if_email_password_exists($_POST['email'],
-        MD5($_POST['password']),
+if (!empty($_POST['emailAdres']) && !empty($_POST['wachtwoord'])) {
+    // Als emailAdres/wachtwoord combi bestaat en geactiveerd....
+    if (LoginClass::check_if_emailAdres_password_exists($_POST['emailAdres'],
+        MD5($_POST['wachtwoord']),
         '1')
     ) {
-        $session->login(LoginClass::find_login_by_email_password($_POST['email'],
-            MD5($_POST['password'])));
+        $session->login(LoginClass::find_login_by_emailAdres_password($_POST['emailAdres'],
+            MD5($_POST['wachtwoord'])));
 
         switch ($_SESSION['userrole']) {
             case 'klant':
@@ -34,7 +34,7 @@ if (!empty($_POST['email']) && !empty($_POST['password'])) {
                 header("location:index.php?content=inloggen_Registreren");
         }
     } else {
-        echo "<h3 style='text-align: center;' >Uw email/password combi bestaat niet of uw account is niet geactiveerd.</h3><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+        echo "<h3 style='text-align: center;' >Uw emailAdres/wachtwoord combi bestaat niet of uw account is niet geactiveerd.</h3><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
         header("refresh:5;url=index.php?content=inloggen_Registreren");
     }
 } else {

@@ -1,5 +1,5 @@
 <?php
-$userrole = array("klant",);
+$userrole = array("2",);
 require_once("./security.php");
 
 if (isset($_POST['submit'])) {
@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
     if (LoginClass::check_old_password($_POST['oude_wachtwoord'])) {
         //echo "Goede wachtwoord";
         if (!strcmp($_POST['nieuw_wachtwoord'], $_POST['controle_wachtwoord'])) {
-            LoginClass::update_password($_SESSION['idKlant'], $_POST['nieuw_wachtwoord']);
+            LoginClass::update_password($_SESSION['idUser'], $_POST['nieuw_wachtwoord']);
 
             echo "<h3 style='text-align: center;' >Uw wachtwoord is succesvol gewijzigd.</h3><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
             header("refresh:4;url=index.php?content=klantHomepage");
@@ -43,15 +43,15 @@ if (isset($_POST['submit'])) {
                         <div class="form-group"><label class="control-label" for="oude_wachtwoord">Voer het oude
                                 wachtwoord in<br></label>
                             <input class="form-control" id="oude_wachtwoord" placeholder="Oude wachtwoord"
-                                   type="password" name="oude_wachtwoord" required></div>
+                                   type="wachtwoord" name="oude_wachtwoord" required></div>
                         <div class="form-group"><label class="control-label" for="nieuw_wachtwoord">Voer het nieuwe
                                 wachtwoord in<br></label>
                             <input class="form-control" id="nieuw_wachtwoord" placeholder="Nieuw wachtwoord"
-                                   type="password" name="nieuw_wachtwoord"></div>
+                                   type="wachtwoord" name="nieuw_wachtwoord"></div>
                         <div class="form-group"><label class="control-label" for="controle_wachtwoord">Voer nogmaals het
                                 nieuwe wachtwoord<br></label>
                             <input class="form-control" id="controle_wachtwoord" placeholder="Controle wachtwoord"
-                                   type="password" name="controle_wachtwoord"></div>
+                                   type="wachtwoord" name="controle_wachtwoord"></div>
 
                         <button type="submit" class="btn btn-primary" name="submit">Verzend</button>
 

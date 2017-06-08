@@ -1,5 +1,5 @@
 <?php
-$userrole = array("klant", "bezorger", "admin", "baliemedewerker", "eigenaar");
+$userrole = array("2", "bezorger", "1", "baliemedewerker", "eigenaar");
 require_once("./security.php");
 ?>
 
@@ -124,7 +124,7 @@ if (isset($_POST['reserveer'])) {
                                            
                                         <p ><form role = \"form\" action='' method='post'>
                                         <input type='hidden' name='idVideo' value='" . $row['idVideo'] . "'/>
-                                        <input type='hidden' name='idKlant' value='" . $_SESSION['idKlant'] . "'/>
+                                        <input type='hidden' name='idUser' value='" . $_SESSION['idUser'] . "'/>
                                         <input type='hidden' name='titel' value='" . $row['titel'] . "'/>
                                         <input type='hidden' name='aantalBeschikbaar' value='" . $row['aantalBeschikbaar'] . "'/>
                                         <input type='hidden' name='prijs' value='" . $row['prijs'] . "'/>

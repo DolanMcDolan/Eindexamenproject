@@ -1,5 +1,5 @@
 <?php
-$userrole = array("klant", "bezorger", "admin", "baliemedewerker", "eigenaar");
+$userrole = array("2", "bezorger", "1", "baliemedewerker", "eigenaar");
 require_once("./security.php");
 ?>
 
@@ -76,7 +76,7 @@ if (isset($_POST['removeItemReserve'])) {
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $sql = "SELECT * FROM `reservering` WHERE `idKlant` = " . $_SESSION['idKlant'] . " ";
+            $sql = "SELECT * FROM `reservering` WHERE `idUser` = " . $_SESSION['idUser'] . " ";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {

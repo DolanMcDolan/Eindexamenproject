@@ -1,5 +1,5 @@
 <?php
-$userrole = array("klant");
+$userrole = array("2");
 require_once("./security.php");
 ?>
 
@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
 			                 SET 		`naam`		=	'" . $_POST['naam'] . "',
 						                `adres`	= 	'" . $_POST['adres'] . "',
 						                `woonplaats`	= 	'" . $_POST['woonplaats'] . "'
-			                 WHERE	`idKlant`			=	'" . $_SESSION['idKlant'] . "';";
+			                 WHERE	`idUser`			=	'" . $_SESSION['idUser'] . "';";
 
     //echo $sql;
     $database->fire_query($sql);
@@ -79,7 +79,7 @@ if (isset($_POST['submit'])) {
                     if ($conn->connect_error) {
                         die("Connection failed: " . $conn->connect_error);
                     }
-                    $sql2 = "SELECT `naam`, `adres`, `woonplaats` FROM `login` WHERE `idKlant` = " . $_SESSION['idKlant'] . " ";
+                    $sql2 = "SELECT `naam`, `adres`, `woonplaats` FROM `login` WHERE `idUser` = " . $_SESSION['idUser'] . " ";
                     $result = $conn->query($sql2);
 
                     if ($result->num_rows > 0) {

@@ -48,20 +48,20 @@ class BalieMedewerkerClass
         $database->fire_query($query2);
         $database->fire_query($query3);
                 
-        $sql1 = "SELECT a.email FROM login AS a INNER JOIN reservering AS b ON a.idKlant = b.idKlant where idVideo =             '".$_POST['idVideo']."'";
+        $sql1 = "SELECT a.emailAdres FROM login AS a INNER JOIN reservering AS b ON a.idUser = b.idUser where idVideo =             '".$_POST['idVideo']."'";
         $result = $database->fire_query($sql1);
 
         if ($result->num_rows > 0){
             while ($row = $result->fetch_assoc()) {
-                self::send_email($row['email']);
+                self::send_emailAdres($row['emailAdres']);
             }
         }
     }
     
-    private static function send_email($email)
+    private static function send_emailAdres($emailAdres)
 	{
-		$to = $email;
-		$subject = "Activatiemail webshop Marklin";
+		$to = $emailAdres;
+		$subject = "ActivatiemailAdres webshop Marklin";
 		$message = "Dear sir/madam <br> ";
 
 		$message .= '<style>a { color:red;}</style>';
@@ -89,7 +89,7 @@ class BalieMedewerkerClass
         global $database;
 
 
-        $query = "DELETE FROM `reservering` WHERE `idKlant` = " . $_SESSION['idKlant'] . "
+        $query = "DELETE FROM `reservering` WHERE `idUser` = " . $_SESSION['idUser'] . "
                                                     AND `idReservering` = " . $post["idReservering"] . " ";
         //echo $query;
 
