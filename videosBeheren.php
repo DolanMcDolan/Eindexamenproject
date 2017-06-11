@@ -1,5 +1,5 @@
 <?php
-$userrole = array("1", "eigenaar");
+$rollen = array("klant", "admin");
 require_once("./security.php");
 ?>
 
@@ -66,7 +66,7 @@ if (isset($_POST['submit'])) {
         <div class="col-md-12">
             <?php
             require_once("classes/LoginClass.php");
-            require_once("classes/HireClass.php");
+            require_once("classes/KoopClass.php");
             require_once("classes/SessionClass.php");
 
             $servername = "localhost";
@@ -109,7 +109,7 @@ if (isset($_POST['submit'])) {
 //                            }
                     echo "
                            <!-- </select> -->
-                        <input type='hidden' name='idvanvid' value='" . $row['idVideo'] . "'/>
+                        <input type='hidden' name='idvanvid' value='" . $row['idProduct'] . "'/>
                         <button type=\"submit\" class=\"btn btn-danger\" name=\"submit\">Verzend</button>
                     </form><br><hr>";
 

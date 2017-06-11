@@ -1,5 +1,5 @@
 <?php
-$userrole = array("1", "eigenaar");
+$rollen = array("admin", "eigenaar");
 require_once("./security.php");
 ?>
 
@@ -35,7 +35,7 @@ require_once("./security.php");
 
             $sql = "UPDATE	`video` 
                      SET 		`beschikbaar`		=	'" . $_POST['blockSelect'] . "'
-                     WHERE	    `idvideo`			=	 " . $_POST['idVideo'] . " ";
+                     WHERE	    `idProduct`			=	 " . $_POST['idProduct'] . " ";
 
             // echo $sql;
             $database->fire_query($sql);
@@ -74,7 +74,7 @@ require_once("./security.php");
                 <div class="col-md-6">
                     <?php
                     require_once("classes/LoginClass.php");
-                    require_once("classes/HireClass.php");
+                    require_once("classes/KoopClass.php");
                     require_once("classes/SessionClass.php");
 
                     $servername = "localhost";
@@ -129,7 +129,7 @@ require_once("./security.php");
                                                 <option value='1'>Beschikbaar ( 1 )</option>
                                                 <option value='0'>Niet beschikbaar ( 0 )</option>
                                                 </select>
-                                            <input type='hidden' class=\"btn btn-info\" name='idVideo' value='" . $row['idVideo'] . "'/>
+                                            <input type='hidden' class=\"btn btn-info\" name='idProduct' value='" . $row['idProduct'] . "'/>
                                             <input type='submit' class=\"btn btn-info\" name='updateBlock' value='Update Beschikbaarheid'>
                                             
                                         </form>

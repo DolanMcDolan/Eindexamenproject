@@ -57,8 +57,8 @@ class ReserveClass
 
         $date = date('Y-m-d');
 
-        $query = "INSERT INTO `reservering` (`idReservering`, `idUser`, `idVideo`, `titel`, `datumReservatie`) 
-                      VALUES (NULL, " . $_SESSION['idUser'] . " ,'" . $post['idVideo'] . "','" . $post['titel'] . "',          '" . $date . "')";
+        $query = "INSERT INTO `reservering` (`idReservering`, `idUser`, `idProduct`, `titel`, `datumReservatie`) 
+                      VALUES (NULL, " . $_SESSION['idUser'] . " ,'" . $post['idProduct'] . "','" . $post['titel'] . "',          '" . $date . "')";
 
 //            echo $_SESSION['id'];
 //            echo $post['titel'];
@@ -108,7 +108,7 @@ class ReserveClass
         global $database;
 
         $query = "SELECT * FROM `reservering`
-					  WHERE	 `idVideo` = '" . $post['idVideo'] . "'
+					  WHERE	 `idProduct` = '" . $post['idProduct'] . "'
                       AND `idUser` = '" . $_SESSION['idUser'] . "'";
 
         $result = $database->fire_query($query);
@@ -149,7 +149,7 @@ class ReserveClass
     {
         global $database;
 
-        $query = "INSERT INTO `winkelmand`(`idWinkelmand`, `idVideo`, `titel`, `idUser`, `prijs`) VALUES (null," . $row['idVideo'] . ",'" . $row['titel'] . "', " . $_SESSION['idUser'] . "," . $row['prijs'] . ")";
+        $query = "INSERT INTO `winkelmand`(`idWinkelmand`, `idProduct`, `titel`, `idUser`, `prijs`) VALUES (null," . $row['idProduct'] . ",'" . $row['titel'] . "', " . $_SESSION['idUser'] . "," . $row['prijs'] . ")";
         echo $query;
         $database->fire_query($query);
         self::lower_amount_Artikelen($row);
@@ -158,11 +158,11 @@ class ReserveClass
     public static function lower_amount_Artikelen($row)
     {
         global $database;
-        $idVideo = $row['idVideo'];
+        $idProduct = $row['idProduct'];
 
         $query = "UPDATE `video`
 					  SET `aantalBeschikbaar` = `aantalBeschikbaar` - 1
-					  WHERE `idVideo` = '" . $idVideo . "'";
+					  WHERE `idProduct` = '" . $idProduct . "'";
         //echo $query;
         $database->fire_query($query);
 

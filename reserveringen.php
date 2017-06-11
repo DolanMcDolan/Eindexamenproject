@@ -1,5 +1,5 @@
 <?php
-$userrole = array("2", "bezorger", "1", "baliemedewerker", "eigenaar");
+$rollen = array("klant", "bezorger", "admin", "baliemedewerker", "eigenaar");
 require_once("./security.php");
 ?>
 
@@ -57,7 +57,7 @@ if (isset($_POST['removeItemReserve'])) {
         <div class="col-md-6">
             <?php
             require_once("classes/LoginClass.php");
-            require_once("classes/HireClass.php");
+            require_once("classes/KoopClass.php");
             require_once("classes/SessionClass.php");
 
             require_once("classes/ReserveClass.php");
@@ -102,7 +102,7 @@ if (isset($_POST['removeItemReserve'])) {
                                             <input type='hidden' class=\"btn btn-info\" name='idReservering' value='" . $row['idReservering'] . "'/>
 
  
-                                            <input type='hidden' class=\"btn btn-info\" name='idVideo' value='" . $row['idVideo'] . "'/>
+                                            <input type='hidden' class=\"btn btn-info\" name='idProduct' value='" . $row['idProduct'] . "'/>
                                         </form>
                                 </td>
                             </tr>

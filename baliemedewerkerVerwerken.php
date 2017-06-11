@@ -1,5 +1,5 @@
 <?php
-$userrole = array("1", "baliemedewerker");
+$rollen = array("admin", "baliemedewerker");
 require_once("./security.php");
 ?>
 
@@ -43,7 +43,7 @@ if (isset($_POST['update'])) {
                 <form role="form" action='' method='post'>
                     <div class="form-group">
                         <label for="id">VideoId</label>
-                        <input type="text" class="form-control" name="idVideo" placeholder="Voer videoid in.">
+                        <input type="text" class="form-control" name="idProduct" placeholder="Voer videoid in.">
                     </div>
 
                     <button type="submit" name="update" class="btn btn-primary">Update</button>

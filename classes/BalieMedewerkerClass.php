@@ -4,7 +4,7 @@ require_once('MySqlDatabaseClass.php');
 class BalieMedewerkerClass
 {
     //Fields
-    private $idVideo;
+    private $idProduct;
     private $titel;
     private $beschrijving;
     private $genres;
@@ -30,15 +30,15 @@ class BalieMedewerkerClass
         
         $query = "UPDATE `video`
 					  SET	 `aantalBeschikbaar` = `aantalBeschikbaar` + 1 
-					  WHERE	 `idVideo`		=	'" . $_POST['idVideo'] . "'";
+					  WHERE	 `idProduct`		=	'" . $_POST['idProduct'] . "'";
 
 
         $query2 = "UPDATE `reservering`
                     SET `datumVideoBeschikbaar` = '".$date."'
-                    WHERE `idVideo` = '".$_POST['idVideo']."'";
+                    WHERE `idProduct` = '".$_POST['idProduct']."'";
         $query3 = "UPDATE `reservering`
                     SET `reactieDatumKlant` = '".$datumreactie."'
-                    WHERE `idVideo` = '".$_POST['idVideo']."'";
+                    WHERE `idProduct` = '".$_POST['idProduct']."'";
 
 
         // echo $query;
@@ -48,7 +48,7 @@ class BalieMedewerkerClass
         $database->fire_query($query2);
         $database->fire_query($query3);
                 
-        $sql1 = "SELECT a.emailAdres FROM login AS a INNER JOIN reservering AS b ON a.idUser = b.idUser where idVideo =             '".$_POST['idVideo']."'";
+        $sql1 = "SELECT a.emailAdres FROM login AS a INNER JOIN reservering AS b ON a.idUser = b.idUser where idProduct =             '".$_POST['idProduct']."'";
         $result = $database->fire_query($sql1);
 
         if ($result->num_rows > 0){
@@ -97,9 +97,9 @@ class BalieMedewerkerClass
         $database->fire_query($query);
     }
 
-    public function getIdVideo()
+    public function getidProduct()
     {
-        return $this->idVideo;
+        return $this->idProduct;
     }
 
     public function setId($value)

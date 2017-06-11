@@ -54,7 +54,7 @@
 </head>
 <body>
 <div class="cover">
-    <div class="cover-image" style="background-image: url('./images/bannerd.jpg')"></div>
+    <div class="cover-image" style="background-image: url('./pictures/bannerd.jpg')"></div>
     <div class="container" style="height: 450px;">
         <div class="row">
             <div class="col-md-12 text-center fronttext" style="margin-top: 150px;">

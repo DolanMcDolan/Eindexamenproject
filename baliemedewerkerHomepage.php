@@ -1,5 +1,5 @@
 <?php
-$userrole = array("1", "baliemedewerker");
+$rollen = array("admin", "baliemedewerker");
 require_once("./security.php");
 ?>
 
@@ -45,7 +45,7 @@ if (isset($_POST['update'])) {
 
                 $sql = "UPDATE	`video` 
                          SET 		`beschikbaar`		=	1
-                         WHERE	    `idvideo`			=	 " . $_POST['idVideo'] . " ";
+                         WHERE	    `idProduct`			=	 " . $_POST['idProduct'] . " ";
 
                 // echo $sql;
                 $database->fire_query($sql);
@@ -70,7 +70,7 @@ if (isset($_POST['update'])) {
                     <div class="col-md-6">
                         <?php
                         require_once("classes/LoginClass.php");
-                        require_once("classes/HireClass.php");
+                        require_once("classes/KoopClass.php");
                         require_once("classes/SessionClass.php");
 
                         $servername = "localhost";
@@ -115,7 +115,7 @@ if (isset($_POST['update'])) {
                                 <tbody>
                                 <tr>
                                     <td>
-                                            " . $row['idVideo'] . "
+                                            " . $row['idProduct'] . "
                                     </td>
                                     <td>
                                             " . $row['titel'] . "
@@ -128,7 +128,7 @@ if (isset($_POST['update'])) {
                                     </td>
                                     <td>
                                             <form role=\"form\" action='' method='post'>
-                                                <input type='hidden' class=\"btn btn-info\" name='idVideo' value='" . $row['idVideo'] . "'/>
+                                                <input type='hidden' class=\"btn btn-info\" name='idProduct' value='" . $row['idProduct'] . "'/>
                                                 <input type='submit' class=\"btn btn-info\" name='updateBlock' value='Maak beschikbaar'>
 
                                             </form>

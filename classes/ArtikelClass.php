@@ -5,7 +5,7 @@ require_once('MySqlDatabaseClass.php');
 class ArtikelClass
 {
     //Fields
-    private $idVideo;
+    private $idProduct;
     private $titel;
     private $beschrijving;
     private $genres;
@@ -14,9 +14,9 @@ class ArtikelClass
 
     //Properties
     //getters
-    public function getIdVideo()
+    public function getidProduct()
     {
-        return $this->idVideo;
+        return $this->idProduct;
     }
 
     public function getTitel()
@@ -97,7 +97,7 @@ class ArtikelClass
             $object = new ArtikelClass();
 
             // Stop de gevonden recordwaarden uit de database in de fields van een ArtikelClass-object
-            $object->id = $row['idVideo'];
+            $object->id = $row['idProduct'];
             $object->titel = $row['titel'];
             $object->beschrijving = $row['beschrijving'];
             $object->genres = $row['genres'];
@@ -108,11 +108,11 @@ class ArtikelClass
         return $object_array;
     }
 
-    public static function find_info_by_id($idVideo)
+    public static function find_info_by_id($idProduct)
     {
         $query = "SELECT 	*
 					  FROM 		`video`
-					  WHERE		`idVideo`	=	" . $idVideo;
+					  WHERE		`idProduct`	=	" . $idProduct;
         $object_array = self::find_by_sql($query);
         $videoclassObject = array_shift($object_array);
 
@@ -122,7 +122,7 @@ class ArtikelClass
 
     public static function find_info_by_id2()
     {
-        $query2 = "SELECT b.naam FROM videoacteur AS a INNER JOIN acteur AS b ON a.idActeur = b.idActeur WHERE a.idVideo = " . $_GET['idVideo'] . " ";
+        $query2 = "SELECT b.naam FROM videoacteur AS a INNER JOIN acteur AS b ON a.idActeur = b.idActeur WHERE a.idProduct = " . $_GET['idProduct'] . " ";
         $object_array = self::find_by_sql($query2);
         $videoclassObject2 = array_shift($object_array);
 
@@ -139,13 +139,13 @@ class ArtikelClass
         $dateOld = date('Y-m-d', strtotime("+30 days"));
         //echo $dateOld;
 
-        $sql = "SELECT idVideo FROM video ORDER BY idVideo DESC LIMIT 1";
+        $sql = "SELECT idProduct FROM video ORDER BY idProduct DESC LIMIT 1";
         $result = $database->fire_query($sql);
         while ($row = $result->fetch_assoc()) {
-            $lastVideoID = ($row['idVideo'] + 1);
+            $lastVideoID = ($row['idProduct'] + 1);
         }
 
-        $query = "INSERT INTO `video` (`idVideo`,
+        $query = "INSERT INTO `video` (`idProduct`,
 										   `titel`,
 										   `beschrijving`,
 										   `fotopad`,
@@ -170,14 +170,14 @@ class ArtikelClass
     {
         global $database;
 
-        $sql = "SELECT idVideo FROM video ORDER BY idVideo DESC LIMIT 1";
+        $sql = "SELECT idProduct FROM video ORDER BY idProduct DESC LIMIT 1";
         $result = $database->fire_query($sql);
         while ($row = $result->fetch_assoc()) {
-            $lastVideoID = $row['idVideo'];
+            $lastVideoID = $row['idProduct'];
         }
 
-        $query = "INSERT INTO `videogenre`(`idVideoGenre`, 
-												`idVideo`, 
+        $query = "INSERT INTO `videogenre`(`idProductGenre`, 
+												`idProduct`, 
 												`idGenre`) 
 				   VALUES 						(NULL,
 				   								 " . $lastVideoID . ",
@@ -193,14 +193,14 @@ class ArtikelClass
     {
         global $database;
 
-        $sql = "SELECT idVideo FROM video ORDER BY idVideo DESC LIMIT 1";
+        $sql = "SELECT idProduct FROM video ORDER BY idProduct DESC LIMIT 1";
         $result = $database->fire_query($sql);
         while ($row = $result->fetch_assoc()) {
-            $lastVideoID = $row['idVideo'];
+            $lastVideoID = $row['idProduct'];
         }
 
-        $query = "INSERT INTO `videoacteur`(`idVideoActeur`, 
-												 `idVideo`, 
+        $query = "INSERT INTO `videoacteur`(`idProductActeur`, 
+												 `idProduct`, 
 												 `idActeur`) 
 				   VALUES 						(NULL,
 				   								 " . $lastVideoID . ",
@@ -216,9 +216,9 @@ class ArtikelClass
     {
         global $database;
 
-        $sql = "DELETE FROM `video` WHERE `idVideo` = " . $_POST['idVideo'] . " ";
-        $sql2 = "DELETE FROM `videoacteur` WHERE `idVideo` = " . $_POST['idVideo'] . " ";
-        $sql3 = "DELETE FROM `videogenre` WHERE `idVideo` = " . $_POST['idVideo'] . " ";
+        $sql = "DELETE FROM `video` WHERE `idProduct` = " . $_POST['idProduct'] . " ";
+        $sql2 = "DELETE FROM `videoacteur` WHERE `idProduct` = " . $_POST['idProduct'] . " ";
+        $sql3 = "DELETE FROM `videogenre` WHERE `idProduct` = " . $_POST['idProduct'] . " ";
 
 //			echo $sql . "<br>";
 //			echo $sql2 . "<br>";
@@ -239,7 +239,7 @@ class ArtikelClass
 											`fotopad`	= 	'" . $_POST['fotopad'] . "',
 											`prijs`	= 	'" . $_POST['prijs'] . "',
 											`aantalBeschikbaar`	= 	'" . $_POST['aantalBeschikbaar'] . "'
-									WHERE	`idVideo`			=	'" . $_POST['idvanvid'] . "'";
+									WHERE	`idProduct`			=	'" . $_POST['idvanvid'] . "'";
 
 //			echo $sql;
 
@@ -249,6 +249,29 @@ class ArtikelClass
     }
 
 
+
+    public static function selecteer_alle_artikelen()
+    {
+        global $database;
+
+        $sql = "SELECT * FROM producten";
+
+        $result = $database->fire_query($sql);
+
+        return $result;
+    }
+
+    public static function selecteer_specefiek_artikel($idProduct)
+    {
+        global $database;
+
+        $sql       = "SELECT * FROM `producten` 
+                      WHERE `idProduct` = '" . $idProduct . "'";
+
+        $result = $database->fire_query($sql);
+
+        return $result;
+    }
 
     //$database->fire_query($sql);
     //$result = mysqli_query($connection, $sql);

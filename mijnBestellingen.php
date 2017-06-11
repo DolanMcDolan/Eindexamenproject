@@ -1,16 +1,16 @@
 <?php
 
-$userrole = array("2");
+$rollen = array("klant");
 require_once("./security.php");
 
 if (isset($_POST['addAday'])) {
-    require_once("./classes/HireClass.php");
-    HireClass::bestelling_verlengen_day($_POST);
+    require_once("./classes/KoopClass.php");
+    KoopClass::bestelling_verlengen_day($_POST);
     echo "<h3 style='text-align: center;' >Uw bestelling is verlengd met 1 dag. Dit kostte 0,75</h3><br><br><br><br><br><br><br><br>         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
     header("refresh:4;url=index.php?content=mijnBestellingen");
 } else if (isset($_POST['addAWeek'])) {
-    require_once("./classes/HireClass.php");
-    HireClass::bestelling_verlengen_week($_POST);
+    require_once("./classes/KoopClass.php");
+    KoopClass::bestelling_verlengen_week($_POST);
     echo "<h3 style='text-align: center;' >Uw bestelling is verlengd met 1 week. Dit kostte 5,25</h3><br><br><br><br><br><br><br><br>         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
     header("refresh:4;url=index.php?content=mijnBestellingen");
 
@@ -59,7 +59,7 @@ if (isset($_POST['addAday'])) {
                 <div class="col-md-6">
                     <?php
                     require_once("classes/LoginClass.php");
-                    require_once("classes/HireClass.php");
+                    require_once("classes/KoopClass.php");
                     require_once("classes/SessionClass.php");
 
                     $servername = "localhost";
@@ -103,7 +103,7 @@ if (isset($_POST['addAday'])) {
                             <tbody>
                             <tr>
                                 <td>
-                                        " . $row["idVideo"] . "
+                                        " . $row["idProduct"] . "
                                 </td>
                                 <td>
                                         " . $row["afleverdatum"] . "

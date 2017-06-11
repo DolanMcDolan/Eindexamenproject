@@ -1,5 +1,5 @@
 <?php
-$userrole = array("1", "eigenaar");
+$rollen = array("admin", "eigenaar");
 require_once("./security.php");
 ?>
 <?php
@@ -62,7 +62,7 @@ if (isset($_POST['removeVideo'])) {
                 <div class="col-md-6">
                     <?php
                     require_once("classes/LoginClass.php");
-                    require_once("classes/HireClass.php");
+                    require_once("classes/KoopClass.php");
                     require_once("classes/SessionClass.php");
 
                     $servername = "localhost";
@@ -103,7 +103,7 @@ if (isset($_POST['removeVideo'])) {
                                 <td>
                                         <form role=\"form\" action='' method='post'>
                                             <input type='submit' class=\"btn btn-info\" name='removeVideo' value='Verwijder Film'>
-                                            <input type='hidden' class=\"btn btn-info\" name='idVideo' value='" . $row['idVideo'] . "'/>
+                                            <input type='hidden' class=\"btn btn-info\" name='idProduct' value='" . $row['idProduct'] . "'/>
                                         </form>
                                 </td>
                             </tr>

@@ -1,5 +1,5 @@
 <?php
-$userrole = array("2");
+$rollen = array("klant");
 require_once("./security.php");
 ?>
 
@@ -63,7 +63,7 @@ if (isset($_POST['submit'])) {
                 <div class="col-md-12">
                     <?php
                     require_once("classes/LoginClass.php");
-                    require_once("classes/HireClass.php");
+                    require_once("classes/KoopClass.php");
                     require_once("classes/SessionClass.php");
 
                     $servername = "localhost";

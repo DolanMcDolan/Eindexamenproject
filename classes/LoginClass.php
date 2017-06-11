@@ -20,7 +20,7 @@ require_once("ArtikelClass.php");
 class LoginClass
 {
     //Fields
-    private $idKlant;
+    private $idUser;
     private $naam;
     private $emailAdresAdres;
     private $wachtwoord;
@@ -34,7 +34,7 @@ class LoginClass
 
 
     //Properties
-    public function getIdKlant()                { return $this->idUser; }
+    public function getidUser()                { return $this->idUser; }
     public function getNaam()                   { return $this->naam; }
     public function getemailAdres()             { return $this->emailAdres; }
     public function getWachtwoord()             { return $this->wachtwoord; }
@@ -46,7 +46,7 @@ class LoginClass
     public function getActivatiedatum()         { return $this->activatiedatum; }
     public function getGeblokkeerd()            { return $this->geblokkeerd; }
 
-    public function setIdKlant($value)          { $this->idUser = $value; }
+    public function setidUser($value)          { $this->idUser = $value; }
     public function setNaam($value)             { $this->naam = $value; }
     public function setemailAdresAdres($value)       { $this->emailAdres = $value; }
     public function setWachtwoord($value)       { $this->wachtwoord = $value; }
@@ -119,8 +119,6 @@ class LoginClass
         date_default_timezone_set("Europe/Amsterdam");
 
         $datum = date('Y-m-d');
-        $betaalwijze = 1;
-        $rol = 2;
 
         $wachtwoord = MD5($post['emailAdres'] . date('Y-m-d H:i:s'));
 
@@ -141,12 +139,11 @@ class LoginClass
 									   '" . $wachtwoord . "',
 									   '" . $post['adres'] . "',
 									   '" . $post['woonplaats'] . "',
-									   '" . $betaalwijze . "',
-									   '" . $rol . "',
+									   '" . $post['betaalwijze'] . "',
+									   '" . '2'. "',
 									   '" . '0' . "',
 									   '" . $datum . "',
 									   '" . '0' . "')";
-
         $database->fire_query($query);
 
         $last_id = mysqli_insert_id($database->getDb_connection());
@@ -200,13 +197,13 @@ class LoginClass
         return ($record['geactiveerd'] == '0') ? true : false;
     }
 
-    public static function check_if_geblokkeerd($idKlant)
+    public static function check_if_geblokkeerd($idUser)
     {
         global $database;
 
         $query = "SELECT `geblokkeerd`
 					  FROM	 `users`
-					  WHERE	 `idUser` = '" . $idKlant . "'";
+					  WHERE	 `idUser` = '" . $idUser . "'";
 
         $result = $database->fire_query($query);
         $record = mysqli_fetch_array($result);
@@ -214,7 +211,7 @@ class LoginClass
 
     }
 
-    private static function send_emailAdres($idKlant, $post, $wachtwoord)
+    private static function send_emailAdres($idUser, $post, $wachtwoord)
     {
         $to = $post['emailAdres'];
         $subject = "ActivatiemailAdres Webshop";
@@ -222,11 +219,11 @@ class LoginClass
 
         $message .= '<style>a { color:red;}</style>';
         $message .= "Hartelijk dank voor het registreren" . "<br>";
-        $message .= "Uw registratienummer is: " . $idKlant . "<br>";
+        $message .= "Uw registratienummer is: " . $idUser . "<br>";
         $message .= "U kunt de registratie voltooien door op de onderstaande" . "<br>";
         $message .= "activatielink te klikken:" . "<br>";
 
-        $message .= "klik <a href='" . MAIL_PATH . "index.php?content=activate&idUser=" . $idKlant . "&emailAdres=" . $post['emailAdres'] . "&wachtwoord=" . $wachtwoord . "'><b>Hier</b></a> om uw account te activeren" . "<br>";
+        $message .= "klik <a href='" . MAIL_PATH . "index.php?content=activate&idUser=" . $idUser . "&emailAdres=" . $post['emailAdres'] . "&wachtwoord=" . $wachtwoord . "'><b>Hier</b></a> om uw account te activeren" . "<br>";
 
         $message .= "U kunt dan vervolgens een nieuw wachtwoord instellen." . "<br>";
         $message .= "Met vriendelijke groet," . "<br>";
@@ -244,23 +241,23 @@ class LoginClass
         mail($to, $subject, $message, $headers);
     }
 
-    public static function activate_account_by_id($idKlant)
+    public static function activate_account_by_id($idUser)
     {
         global $database;
         $query = "UPDATE `users`
 					  SET `geactiveerd` = '1'
-					  WHERE `idUser` = '" . $idKlant . "'";
+					  WHERE `idUser` = '" . $idUser . "'";
 
         $database->fire_query($query);
 
     }
 
-    public static function update_password($idKlant, $wachtwoord)
+    public static function update_password($idUser, $wachtwoord)
     {
         global $database;
         $query = "UPDATE `users` 
 					  SET	 `wachtwoord` =	'" . MD5($wachtwoord) . "'
-					  WHERE	 `idUser`		=	'" . $idKlant . "'";
+					  WHERE	 `idUser`		=	'" . $idUser . "'";
         $database->fire_query($query);
 
     }
@@ -290,15 +287,35 @@ class LoginClass
         $database->fire_query($query);
     }
 
-    public static function find_info_by_id($idKlant)
+    public static function find_info_by_id($idUser)
     {
         $query = "SELECT 	*
 					  FROM 		`users`
-					  WHERE		`idUser`	=	" . $idKlant;
+					  WHERE		`idUser`	=	" . $idUser;
         $object_array = self::find_by_sql($query);
         $usersclassObject = array_shift($object_array);
         //var_dump($usersclassObject); exit();
         return $usersclassObject;
+    }
+
+    public static function check_Rol($post)
+    {
+        global $database;
+
+        $query = "SELECT `rol`
+					  FROM	 `users`
+					  WHERE	 `rol` = '" . $_SESSION['rol'] . "'
+					  AND    `idUser` = '" . $_SESSION['idUser'] . "'";
+        // echo $query;
+        $result = $database->fire_query($query);
+        $record = mysqli_fetch_array($result);
+
+        if ($_SESSION['rol'] == '1' && $record['rol'] == '1') { // Admin
+            $sessieRol = "admin";
+        } elseif ($_SESSION['rol'] == '2' && $record['rol'] == '2') { // Klant
+            $sessieRol = "klant";
+        }
+        return $sessieRol;
     }
 }
 

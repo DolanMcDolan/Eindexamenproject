@@ -11,7 +11,7 @@ if (!empty($_POST['emailAdres']) && !empty($_POST['wachtwoord'])) {
         $session->login(LoginClass::find_login_by_emailAdres_password($_POST['emailAdres'],
             MD5($_POST['wachtwoord'])));
 
-        switch ($_SESSION['userrole']) {
+        switch ($_SESSION['rol']) {
             case 'klant':
                 header("location:index.php?content=klantHomepage");
                 break;

@@ -7,7 +7,7 @@ class KlachtClass
 {
     //Fields
     private $idKlacht;
-    private $idKlant;
+    private $idUser;
     private $klacht;
 
     public function getIdKlacht()
@@ -15,7 +15,7 @@ class KlachtClass
         return $this->idKlacht;
     }
 
-    public function getIdKlant()
+    public function getidUser()
     {
         return $this->idUser;
     }
@@ -31,7 +31,7 @@ class KlachtClass
         $this->idKlacht = $value;
     }
 
-    public function setIdKlant($value)
+    public function setidUser($value)
     {
         $this->klacht = $value;
     }

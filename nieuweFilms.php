@@ -1,6 +1,6 @@
 <!-- <Wijzigingsopdracht> -->
 <?php
-$userrole = array("1", "eigenaar");
+$rollen = array("admin", "eigenaar");
 require_once("./security.php");
 ?>
 
@@ -37,14 +37,14 @@ require_once("./security.php");
             if ($_POST['blockSelect'] == '1') {
                 $sql2 = "UPDATE `video`
                         SET `aantalBeschikbaar` = '10'
-                        WHERE `idVideo` = " . $_POST['idVideo'] . "";
+                        WHERE `idProduct` = " . $_POST['idProduct'] . "";
                 // echo $sql2;
                 $database->fire_query($sql2);
                 $result = mysqli_query($connection, $sql2);
 
                 $sql3 = "UPDATE `video`
                         SET `prijs` = '7.50'
-                        WHERE `idVideo` = " . $_POST['idVideo'] . "";
+                        WHERE `idProduct` = " . $_POST['idProduct'] . "";
                 echo $sql3;
                 $database->fire_query($sql3);
                 $result = mysqli_query($connection, $sql3);
@@ -53,7 +53,7 @@ require_once("./security.php");
 
                 $sql4 = "UPDATE `video`
                         SET `prijs` = '8.00'
-                        WHERE `idVideo` = " . $_POST['idVideo'] . "";
+                        WHERE `idProduct` = " . $_POST['idProduct'] . "";
                 echo $sql4;
                 $database->fire_query($sql4);
                 $result = mysqli_query($connection, $sql4);
@@ -61,7 +61,7 @@ require_once("./security.php");
             }
             $sql = "UPDATE	`video` 
                      SET 		`nieuw`		=	'" . $_POST['blockSelect'] . "'
-                     WHERE	    `idvideo`			=	 " . $_POST['idVideo'] . " ";
+                     WHERE	    `idProduct`			=	 " . $_POST['idProduct'] . " ";
 
 
             //echo $sql;
@@ -100,7 +100,7 @@ require_once("./security.php");
                 <div class="col-md-6">
                     <?php
                     require_once("classes/LoginClass.php");
-                    require_once("classes/HireClass.php");
+                    require_once("classes/KoopClass.php");
                     require_once("classes/SessionClass.php");
 
                     $servername = "localhost";
@@ -155,7 +155,7 @@ require_once("./security.php");
                                                 <option value='1'>Nieuw ( 1 )</option>
                                                 <option value='0'>Niet nieuw ( 0 )</option>
                                                 </select>
-                                            <input type='hidden' class=\"btn btn-info\" name='idVideo' value='" . $row['idVideo'] . "'/>
+                                            <input type='hidden' class=\"btn btn-info\" name='idProduct' value='" . $row['idProduct'] . "'/>
                                             <input type='submit' class=\"btn btn-info\" name='updateNieuw' value='Update Nieuwe Artikelen'>
                                             
                                         </form>

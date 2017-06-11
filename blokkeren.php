@@ -1,5 +1,5 @@
 <?php
-$userrole = array("1", "eigenaar");
+$rollen = array("admin", "eigenaar");
 require_once("./security.php");
 ?>
 
@@ -76,7 +76,7 @@ if (isset($_POST['create'])) {
                 <div class="col-md-6">
                     <?php
                     require_once("classes/LoginClass.php");
-                    require_once("classes/HireClass.php");
+                    require_once("classes/KoopClass.php");
                     require_once("classes/SessionClass.php");
 
                     $servername = "localhost";
@@ -127,7 +127,7 @@ if (isset($_POST['create'])) {
                                         " . $row['emailAdres'] . "
                                 </td>
                                 <td>
-                                        " . $row['userrole'] . "
+                                        " . $row['rol'] . "
                                 </td>
                                 <td>
                                         " . $row['geblokkeerd'] . "

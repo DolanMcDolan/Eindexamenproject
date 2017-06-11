@@ -4,15 +4,15 @@
 class SessionClass
 {
     //Fields
-    private $idKlant;
+    private $idUser;
     private $emailAdres;
-    private $userrole;
+    private $rol;
     private $geblokkeerd;
 
     //Properties
-    public function getUserrole()
+    public function getrol()
     {
-        return $this->userrole;
+        return $this->rol;
     }
 
     //Constructor
@@ -22,11 +22,11 @@ class SessionClass
 
     public function login($loginObject)
     {
-        // De velden $id, $emailAdres, $userrole een waarde geven.
+        // De velden $id, $email, $rol een waarde geven.
         //var_dump($loginObject);
-        $this->idUser = $_SESSION['idUser'] = $loginObject->getIdKlant();
-        $this->emailAdres = $_SESSION['emailAdres'] = $loginObject->getemailAdres();
-        $this->userrole = $_SESSION['userrole'] = $loginObject->getRol();
+        $this->idUser = $_SESSION['idUser'] = $loginObject->getidUser();
+        $this->emailAdres = $_SESSION['emailAdres'] = $loginObject->getEmailAdres();
+        $this->rol = $_SESSION['rol'] = $loginObject->getRol();
         $this->geblokkeerd = $_SESSION['geblokkeerd'] = $loginObject->getGeblokkeerd();
 
 
@@ -41,14 +41,14 @@ class SessionClass
     {
         session_unset('idUser');
         session_unset('emailAdres');
-        session_unset('userrole');
+        session_unset('rol');
         session_unset('geblokkeerd');
 
 
         session_destroy();
         unset($this->idUser);
         unset($this->emailAdres);
-        unset($this->userrole);
+        unset($this->rol);
         unset($this->geblokkeerd);
 
 

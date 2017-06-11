@@ -1,12 +1,12 @@
 <?php
-$userrole = array("2", "bezorger", "1", "baliemedewerker", "eigenaar");
+$rollen = array("klant", "bezorger", "admin", "baliemedewerker", "eigenaar");
 require_once("./security.php");
 ?>
 
 <?php
 
 require_once("./classes/ActeurClass.php");
-if (isset($_POST['submit-acteur'])) {
+if (isset($_POST['submit-acteur'])) {submit-acteur}
 
     ActeurClass::insert_acteur_into_database($_POST['naam']);
     echo "<h3 style='text-align: center;' >U heeft een nieuwe acteur toegevoegd.</h3><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";

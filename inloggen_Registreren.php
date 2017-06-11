@@ -6,10 +6,10 @@ if (isset($_POST['submitRegister'])) {
         //Zo ja, geef een melding dat het emailAdres bestaat en stuur
         //door naar register_form.php
         echo "<h3 style='text-align: center;' >Het door u gebruikte emailAdres is al in gebruik. Gebruik een ander emailAdres. <br>U wordt doorgestuurd naar het registratieformulier</h3><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
-        header("refresh:5;url=index.php?content=inloggen_Registreren");
+//        header("refresh:5;url=index.php?content=inloggen_Registreren");
     } else {
         echo "<h3 style='text-align: center;' >Uw gegevens zijn verwerkt.</h3><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
-        header("refresh:3;url=index.php?content=inloggen_Registreren");
+//        header("refresh:3;url=index.php?content=inloggen_Registreren");
         LoginClass::insert_into_database($_POST);
     }
 } else {
@@ -60,6 +60,15 @@ if (isset($_POST['submitRegister'])) {
                                 name="woonplaats"
                                 placeholder="Woonplaats"
                                 type="text"></div>
+                        <div class="form-group">
+                            <label class="control-label" for="InputBetaalwijze">Betaalwijze<br></label>
+                            <select class="form-control" name="betaalwijze">
+                                <option value='1'>iDeal</option>
+                                <option value='2'>Mastercard</option>
+                                <option value='3'>Paypal</option>
+                                <option value='4'>Overboeking</option>
+                            </select>
+                        </div>
                         <div class="form-group"><label class="control-label" for="InputemailAdres1">E-mail<br></label><input
                                 class="form-control"
                                 id="InputemailAdres1"

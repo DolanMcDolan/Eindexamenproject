@@ -1,5 +1,5 @@
 <?php
-$userrole = array("2",);
+$rollen = array("klant",);
 require_once("./security.php");
 
 if (isset($_POST['submit'])) {
